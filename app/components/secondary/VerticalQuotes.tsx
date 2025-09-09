@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { cn } from "@/lib/utils";
 import { Marquee } from "@/components/magicui/marquee";
+import { Timestamp } from "next/dist/server/lib/cache-handlers/types";
 
 const reviews = [
   {
@@ -61,7 +62,14 @@ const ReviewCard = ({
   );
 };
 
-export function VerticalQuotes() {
+type Quote = {
+  "id": number,
+  "quote": string,
+};
+
+export function VerticalQuotes({ quotes }: {
+    quotes: Quote[]
+}) {
   return (
     <div className="relative flex h-[500px] w-full flex-row items-center justify-center overflow-hidden">
       <Marquee pauseOnHover vertical className="[--duration:20s]">

@@ -1,4 +1,3 @@
-"use client";
 
 import Header from "@/app/components/core/Header";
 
@@ -9,9 +8,14 @@ import { VerticalQuotes } from "@/app/components/secondary/VerticalQuotes";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image'
+import prisma from '@/lib/prisma'
+import { Suspense } from 'react'
+import Footer from "@/app/components/core/Footer";
 
+export default async function Home() {
 
-export default function Home() {
+  const quotes = await prisma.quote.findMany()
+  
   return (
     <div>
       <Header />
@@ -35,7 +39,7 @@ export default function Home() {
             <InteractiveHoverButton>Découvrir les citations</InteractiveHoverButton>
           </section>
           <section>
-            <VerticalQuotes />
+            <VerticalQuotes quotes={quotes} />
           </section>
         </div>
       </main>
@@ -72,9 +76,19 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="h-[200vh]">
+      <section className="flex bg-diagonale border-b">
+          <section className="bg-background w-[95%] border-x m-auto p-12">
+            <div>
+              <h1 className="text-5xl uppercase">Dernières sorties</h1>
+              <p>Découvrez les dernières nouveautés de vos animes préférés !</p>
+              <Button variant="link">Voir plus</Button>
+            </div>
+            <div>
 
+            </div>
+          </section>
       </section>
+      <Footer />
     </div>
   );
 }
