@@ -1,6 +1,13 @@
 import { Poppins } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css";
 import "./app.css"
+
+import localFont from 'next/font/local'
+
+const buildTitling = localFont({
+  src: './fonts/built-titling.ttf',
+})
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
@@ -18,11 +25,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
       <body
-        className={`${poppins.className} font-normal`}
+        className={`${poppins.className} font-normal w-9/10 m-auto border-x min-h-screen`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
