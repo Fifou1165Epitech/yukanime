@@ -3,15 +3,22 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
+import { redirect } from "next/navigation";
 
-import { signUp } from "@/lib/auth-client";
+import { isUsernameAvailable, signUp } from "@/lib/auth-client";
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Chrome } from 'lucide-react';
 import Image from "next/image";
+import { toast } from "sonner";
+
+const delay = () => {
+    return new Promise(resolve => setTimeout(resolve, 1000));
+};
 
 export default function SignUpPage() {
+
+    const [betterAuthError, setBetterAuthError] = useState("");
 
     const {
         register,
@@ -19,29 +26,60 @@ export default function SignUpPage() {
         formState: { errors },
     } = useForm();
 
+    const checkUsername = async (usernameAvailable: string) => {
+        const { data: response, error } = await isUsernameAvailable({
+            username: usernameAvailable,
+        });
+        if(response?.available) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     const handleSignUp = async (data: FieldValues) => {
-        const { data: res, error } = await signUp.email({
-                email: data.email,
-                password: data.password,
-                name: data.name,
-                callbackURL: "/dashboard",
-            }, {
-                onRequest: (ctx) => {
-                    console.log("Signing up...", ctx);
-                },
-                onSuccess: (ctx) => {
-                    console.log("Sign up successful!", ctx);
-                },
-                onError: (ctx) => {
-                    // display the error message
-                    alert(ctx.error.message);
-                },
+
+        const promise = new Promise(async (resolve, reject) => {
+            const isAvailable = await checkUsername(data.name);
+            if (!isAvailable) {
+                setBetterAuthError("Ce pseudo n'est pas disponible");
+                reject();
+                return;
+            }
+
+            
+            const { data: res, error } = await signUp.email({
+                    email: data.email,
+                    password: data.password,
+                    name: data.name,
+                    username: data.name,
+                    callbackURL: "/dashboard",
+                }, {
+                    onRequest: (ctx) => {
+                        console.log("Signing up...", ctx);
+                    },
+                    onSuccess: async (ctx) => {
+                        resolve(ctx);
+                        await delay();
+                        redirect("/account");
+                    },
+                    onError: (ctx) => {
+                        setBetterAuthError("L'email est déjà utilisé.");
+                        reject(ctx);
+                    },
+            });
+        });
+
+        toast.promise(promise, {
+            loading: 'Chargement...',
+            success: 'Inscription réussie ! Bienvenue sur Yukanime 👋',
+            error: 'Oops, une erreur s\'est produite lors de l\'inscription.'
         });
     }
 
     return (
-        <div className="w-9/10 h-screen justify-center flex items-center border-x m-auto relative">
-            <main className="relative z-3 flex flex-col items-center gap-8">
+        <div className="w-9/10 flex flex-col h-screen border-x m-auto relative">
+            <main className="relative grow z-3 flex flex-col items-center gap-8 justify-center">
                 <div className="text-center">
                     <h1 className="text-6xl font-buildTitling">Rejoignez Yukanime !</h1>
                     <p className="">Créez votre compte dès maintenant !</p>
@@ -61,7 +99,7 @@ export default function SignUpPage() {
                         </div>
                         <div className="flex flex-col gap-2">
                             <Label>Email</Label>
-                            <Input {...register("email", { required: "Email requis", pattern: { value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, message: "Email invalide" } })} placeholder="email@yukanime.fr" type="email" className="rounded-none backdrop-blur-xs bg-background/50" />
+                            <Input {...register("email", { required: "Email requis", pattern: { value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, message: "Email invalide" } })} placeholder="Email@yukanime.fr" type="email" className="rounded-none backdrop-blur-xs bg-background/50" />
                             <p>
                                 {errors.email && (
                                     <span className="text-red-400 text-sm">
@@ -92,13 +130,18 @@ export default function SignUpPage() {
                             </p>
                         </div>
                         <Button className="w-full mt-4 rounded-none">Créer mon compte</Button>
+                        {betterAuthError && (
+                            <p className="text-red-400 text-sm text-center mt-2 duration-700 opacity-100 transition-opacity animate-in fade-in slide-in-from-top-2">
+                                {betterAuthError}
+                            </p>
+                        )}
                     </form>
                     <div className="text-center mt-4">
                         <p>Déjà un compte ? <a href="/auth/sign-in" className="underline text-sm">Connectez-vous</a></p>
                     </div>
                     <div className="flex items-center pt-4">
                         <div className="h-0.1 bg-foreground mr-2 flex-1"></div>
-                        <p className="shrink-0 uppercase">Ou continuer avec</p>
+                        <p className="shrink-0 uppercase text-xs">Ou continuer avec</p>
                         <div className="h-0.1 bg-foreground ml-2 flex-1"></div>
                     </div>
                     <div className="flex flex-col gap-4 mt-4">
@@ -120,6 +163,7 @@ export default function SignUpPage() {
                 </div>
                 <Image className="blur-xs object-cover grayscale opacity-5 w-full h-full" src="/assets/1.jpg" alt="yukanime thorfinn" width={2000} height={2000} />
             </div>
+            <div className="flex-none bg-diagonale h-12 border-t bg-background z-10"></div>
         </div>
     );
 }
