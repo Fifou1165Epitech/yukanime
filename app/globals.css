@@ -5,7 +5,7 @@
 
 @theme {
   --color-app: #111111;
-  --color-app-black: #111111;
+  --color-app-black: #0A0A0A;
   --color-app-white: #FAFAFA;
   --spacing-0.1: 1px;
   --font-buildTitling: "buildTitling", sans-serif;
@@ -103,7 +103,7 @@
 }
 
 .dark {
-  --background: oklch(0.1822 0 0);
+  --background: var(--color-app-black);
   --foreground: oklch(0.9461 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);

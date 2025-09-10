@@ -12,12 +12,12 @@ import prisma from '@/lib/prisma'
 import { Suspense } from 'react'
 import Footer from "@/app/components/core/Footer";
 
+
 export default async function Home() {
 
-  const quotes = await prisma.quote.findMany()
-  
+
   return (
-    <div>
+    <div className="w-9/10 m-auto border-x">
       <Header />
       <main className="relative border-b">
         <div className="opacity-50 absolute -z-1 bg-background p-20 flex justify-center w-full h-full">
@@ -39,7 +39,7 @@ export default async function Home() {
             <InteractiveHoverButton>Découvrir les citations</InteractiveHoverButton>
           </section>
           <section>
-            <VerticalQuotes quotes={quotes} />
+            <VerticalQuotes />
           </section>
         </div>
       </main>
@@ -79,7 +79,7 @@ export default async function Home() {
       <section className="flex bg-diagonale border-b">
           <section className="bg-background w-[95%] border-x m-auto p-12">
             <div>
-              <h1 className="text-5xl uppercase">Dernières sorties</h1>
+              <h1 className="text-4xl uppercase font-medium">Dernières sorties</h1>
               <p>Découvrez les dernières nouveautés de vos animes préférés !</p>
               <Button variant="link">Voir plus</Button>
             </div>

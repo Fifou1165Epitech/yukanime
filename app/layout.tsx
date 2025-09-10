@@ -4,6 +4,7 @@ import "./globals.css";
 import "./app.css"
 
 import localFont from 'next/font/local'
+import { Toaster } from "@/components/ui/sonner"
 
 const buildTitling = localFont({
   src: './fonts/built-titling.ttf',
@@ -27,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <body
-        className={`${poppins.className} font-normal w-9/10 m-auto border-x min-h-screen`}
+        className={`${poppins.className} font-normal m-auto`}
       >
         <ThemeProvider
           attribute="class"
@@ -37,6 +38,7 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );

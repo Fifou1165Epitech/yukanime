@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 export default function Header() {
   return (
-    <header className="flex justify-between items-center border-b border-foreground/10 sticky top-0 backdrop-blur-md backdrop-grayscale z-2">
+    <header className="flex justify-between items-center border-b border-foreground/10 sticky top-0 backdrop-blur-md backdrop-grayscale z-10">
       <div className="flex self-stretch items-center px-2 border-r py-1">
         <Image
           className="invert dark:invert-0 h-10 w-10"
@@ -26,7 +26,7 @@ export default function Header() {
         </nav>
         <div className="flex items-center self-stretch">
           <div className="self-stretch bg-foreground/10 w-0.1"></div>
-            <Link className="self-stretch items-center flex px-3 hover:bg-foreground hover:text-background duration-100 text-xs" href="/contact">
+            <Link className="self-stretch items-center flex px-3 hover:bg-foreground hover:text-background duration-100 text-xs" href="/account">
               <CircleUser size={16} />
             </Link>
           </div>
