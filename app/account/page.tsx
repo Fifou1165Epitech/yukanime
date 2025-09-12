@@ -1,21 +1,19 @@
-"use client"
 
-import { signOut, deleteUser } from "@/lib/auth-client"
+import { signOut, deleteUser, useSession } from "@/lib/auth-client"
 import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
+import Header from "@/app/components/core/Header";
+import DisconnectButton from "@/app/components/secondary/buttons/DisconnectButton";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { User, MessageSquareQuote } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
+
 
 export default function AccountPage() {
-    
-    const handleDisconnect = async () => {
-        await signOut({
-            fetchOptions: {
-                onSuccess: () => {
-                    redirect("/auth/sign-in");
-                }
-            }
-        })
-    }
 
     const handleDeleteAccount = async () => {
         await deleteUser({
@@ -30,9 +28,7 @@ export default function AccountPage() {
 
     return (
         <div>
-            <h1>Mon Compte</h1>
-            <Button onClick={handleDisconnect}>Se déconnecter</Button>
-            <Button onClick={handleDeleteAccount}>Supprimer mon compte</Button>
+            <h1 className="text-4xl font-bold uppercase">Fifou1165</h1>
         </div>
     );
 }

@@ -76,14 +76,14 @@ export default function SignInPage() {
                                         message: "Email invalide" 
                                     } 
                                 })} 
-                                placeholder="email@yukanime.fr" 
+                                placeholder="Email@yukanime.fr" 
                                 type="email" 
                                 className="rounded-none backdrop-blur-xs bg-background/50" 
                             />
                             <p>
                                 {errors.email && (
                                     <span className="text-red-400 text-sm">
-                                        {` ${errors.email}`}
+                                        {` ${errors.email.message}`}
                                     </span>
                                 )}
                             </p>
@@ -92,7 +92,8 @@ export default function SignInPage() {
                             <Label>Mot de passe</Label>
                             <Input
                                 {...register("password", {
-                                    required: "Mot de passe requis"
+                                    required: "Mot de passe requis",
+                                    minLength: { value: 8, message: "Le mot de passe doit contenir au moins 8 caractères" }
                                 })}
                                 placeholder="Mot de passe"
                                 type="password"
@@ -108,7 +109,9 @@ export default function SignInPage() {
                         </div>
                         <Button className="w-full mt-4 rounded-none">Se connecter</Button>
                         {betterAuthError && (
-                            <p className="text-red-400 text-sm text-center mt-2">{betterAuthError}</p>
+                            <p className="text-red-400 text-sm text-center mt-2 duration-700 opacity-100 transition-opacity animate-in fade-in slide-in-from-top-2">
+                                {betterAuthError}
+                            </p>
                         )}
                     </form>
                     <div className="text-center mt-4">
@@ -116,7 +119,7 @@ export default function SignInPage() {
                     </div>
                     <div className="flex items-center pt-4">
                         <div className="h-0.1 bg-foreground mr-2 flex-1"></div>
-                        <p className="shrink-0 uppercase">Ou continuer avec</p>
+                        <p className="shrink-0 uppercase text-xs">Ou continuer avec</p>
                         <div className="h-0.1 bg-foreground ml-2 flex-1"></div>
                     </div>
                     <div className="flex flex-col gap-4 mt-4">
