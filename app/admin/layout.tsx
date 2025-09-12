@@ -25,7 +25,7 @@ export default async function AccountLayout({
   const links = [
     { href: "/admin", label: "Accueil", icon: Home },
     { href: "/admin/users", label: "Utilisateurs", icon: Users },
-    { href: "/admin/quotes", label: "Citations", icon: MessageSquareQuote },
+    { href: "/admin/quotes?page=1", label: "Citations", icon: MessageSquareQuote },
   ];
 
   return (
@@ -69,9 +69,9 @@ export default async function AccountLayout({
                         </div>
                     </div>
                 </section>
-                <section className="w-4/5">
-                  <div className="bg-diagonale border-b h-12 w-full"></div>
-                  <div className="p-4">
+                <section className="w-4/5 flex flex-col">
+                  <div className="bg-diagonale border-b h-12 flex-none w-full"></div>
+                  <div className="p-4 grow">
                     {children}
                   </div>
                 </section>
