@@ -28,7 +28,10 @@ export default function AccountPage() {
 
     return (
         <div>
-            <h1 className="text-4xl font-bold uppercase">Fifou1165</h1>
+            <h1 className="text-4xl font-bold uppercase">Mon compte</h1>
+            <div>
+                
+            </div>
         </div>
     );
 }

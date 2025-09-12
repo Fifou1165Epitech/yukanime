@@ -18,11 +18,13 @@ export default function Header() {
       <div className="self-stretch items-center flex">
         <nav className="flex items-center self-stretch">
           <div className="self-stretch bg-foreground/10 w-0.1"></div>
-          <Link className="self-stretch items-center flex px-3 hover:bg-foreground hover:text-background duration-100 text-xs" href="/">Home</Link>
+          <Link className="self-stretch items-center flex px-3 hover:bg-foreground hover:text-background duration-100 text-xs" href="/">Accueil</Link>
           <div className="self-stretch bg-foreground/10 w-0.1"></div>
-          <Link className="self-stretch items-center flex px-3 hover:bg-foreground hover:text-background duration-100 text-xs" href="/about">About</Link>
+          <Link className="self-stretch items-center flex px-3 hover:bg-foreground hover:text-background duration-100 text-xs" href="/quotes">Citations</Link>
           <div className="self-stretch bg-foreground/10 w-0.1"></div>
-          <Link className="self-stretch items-center flex px-3 hover:bg-foreground hover:text-background duration-100 text-xs" href="/contact">Contact</Link>
+          <Link className="self-stretch items-center flex px-3 hover:bg-foreground hover:text-background duration-100 text-xs" href="/community">Communauté</Link>
+          <div className="self-stretch bg-foreground/10 w-0.1"></div>
+          <Link className="self-stretch items-center flex px-3 hover:bg-foreground hover:text-background duration-100 text-xs" href="/news">Nouveautées</Link>
         </nav>
         <div className="flex items-center self-stretch">
           <div className="self-stretch bg-foreground/10 w-0.1"></div>
