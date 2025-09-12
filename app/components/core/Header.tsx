@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 export default function Header() {
   return (
-    <header className="flex justify-between items-center border-b border-foreground/10 sticky top-0 backdrop-blur-md backdrop-grayscale z-10">
+    <header className="flex-none flex justify-between items-center border-b border-foreground/10 sticky top-0 backdrop-blur-md backdrop-grayscale z-10">
       <div className="flex self-stretch items-center px-2 border-r py-1">
         <Image
           className="invert dark:invert-0 h-10 w-10"

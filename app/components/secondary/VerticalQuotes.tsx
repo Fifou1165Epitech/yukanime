@@ -61,6 +61,8 @@ export async function VerticalQuotes() {
     take: 5,
   })
 
+  console.log(firstRowQuotes, secondRowQuotes);
+
   return (
     <div className="relative flex h-[500px] w-full flex-row items-center justify-center overflow-hidden">
       <Marquee vertical className="[--duration:25s]">

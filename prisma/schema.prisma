@@ -42,6 +42,11 @@ model User {
   username        String?
   displayUsername String?
 
+  role       String?
+  banned     Boolean?  @default(false)
+  banReason  String?
+  banExpires DateTime?
+
   @@map("user")
   @@unique([username])
 }
@@ -56,6 +61,8 @@ model Session {
   userAgent String?
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  impersonatedBy String?
 
   @@map("session")
 }
