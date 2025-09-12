@@ -22,6 +22,12 @@ export default async function AccountLayout({
 
   const isAdmin = session?.user?.role?.includes("admin");
 
+  const links = [
+    { href: "/admin", label: "Accueil", icon: Home },
+    { href: "/admin/users", label: "Utilisateurs", icon: Users },
+    { href: "/admin/quotes", label: "Citations", icon: MessageSquareQuote },
+  ];
+
   return (
     <>
         <div className="w-9/10 m-auto border-x flex flex-col h-screen">
@@ -30,12 +36,11 @@ export default async function AccountLayout({
                 <section className="w-1/5 border-r flex flex-col justify-between p-4">
                     <div>
                         <nav className="flex flex-col gap-2">
-                            <Button className="w-full flex justify-start" asChild variant="ghost">
-                                <Link href="/admin"><Home /> Accueil</Link>
-                            </Button>
-                            <Button className="w-full flex justify-start" asChild variant="ghost">
-                                <Link href="/admin/users"><Users /> Utilisateurs</Link>
-                            </Button>
+                            {links.map(link => (
+                                <Button key={link.href} className="w-full flex justify-start" asChild variant="ghost">
+                                    <Link href={link.href}>{<link.icon />} {link.label}</Link>
+                                </Button>
+                            ))}
                         </nav>
                     </div>
                     <div className="flex flex-col w-full gap-2">
@@ -65,10 +70,10 @@ export default async function AccountLayout({
                     </div>
                 </section>
                 <section className="w-4/5">
-                  <div className="bg-diagonale border-b h-12 w-full">
-                    
+                  <div className="bg-diagonale border-b h-12 w-full"></div>
+                  <div className="p-4">
+                    {children}
                   </div>
-                  {children}
                 </section>
             </main>
         </div>

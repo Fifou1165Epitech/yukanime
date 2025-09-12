@@ -22,8 +22,12 @@ export default async function AccountLayout({
       headers: await headers()
   })
 
-
   const isAdmin = session?.user?.role?.includes("admin");
+
+  const links = [
+    { href: "/account", label: "Mon compte", icon: User },
+    { href: "/account/quotes", label: "Citations", icon: MessageSquareQuote },
+  ];
 
   return (
     <>
@@ -33,12 +37,11 @@ export default async function AccountLayout({
                 <section className="w-1/5 border-r flex flex-col justify-between p-4">
                     <div>
                         <nav className="flex flex-col gap-2">
-                            <Button className="w-full flex justify-start" asChild variant="ghost">
-                                <Link href="/account"><User /> Mon compte</Link>
-                            </Button>
-                            <Button className="w-full flex justify-start" asChild variant="ghost">
-                                <Link href="/account/quotes"><MessageSquareQuote /> Citations</Link>
-                            </Button>
+                            {links.map(link => (
+                                <Button key={link.href} className="w-full flex justify-start" asChild variant="ghost">
+                                    <Link href={link.href}>{<link.icon />} {link.label}</Link>
+                                </Button>
+                            ))}
                         </nav>
                     </div>
                     <div className="flex flex-col w-full gap-2">
@@ -72,9 +75,7 @@ export default async function AccountLayout({
                     </div>
                 </section>
                 <section className="w-4/5">
-                  <div className="bg-diagonale border-b h-12 w-full">
-                    
-                  </div>
+                  <div className="bg-diagonale border-b h-12 w-full"></div>
                   <div className="p-4">
                     {children}
                   </div>
