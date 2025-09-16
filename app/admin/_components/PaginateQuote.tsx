@@ -21,9 +21,11 @@ const PaginateQuote = ({ selectedPage, totalPages }: {
   return (
     <Pagination className='flex-none'>
       <PaginationContent className='gap-0 divide-x overflow-hidden rounded-lg border'>
-        <PaginationItem>
-          <PaginationPrevious href={`?page=${selectedPage - 1}`} className='rounded-none' />
-        </PaginationItem>
+        { selectedPage > 1 && (
+          <PaginationItem>
+            <PaginationPrevious href={`?page=${selectedPage - 1}`} className='rounded-none' />
+          </PaginationItem>
+        )}
         {pages.map(page => {
           const isActive = page === selectedPage
 
@@ -48,9 +50,13 @@ const PaginateQuote = ({ selectedPage, totalPages }: {
             </PaginationItem>
           )
         })}
-        <PaginationItem>
-          <PaginationNext href={`?page=${selectedPage + 1}`} className='rounded-none' />
-        </PaginationItem>
+        {
+          selectedPage < totalPages && (
+            <PaginationItem>
+              <PaginationNext href={`?page=${selectedPage + 1}`} className='rounded-none' />
+            </PaginationItem>
+          )
+        }
       </PaginationContent>
     </Pagination>
   )

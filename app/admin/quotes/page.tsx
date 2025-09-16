@@ -7,7 +7,7 @@ export default async function QuotesPage() {
     return (
         <div className="flex flex-col gap-4 h-full">
             <div className="flex-none">
-                <h1 className="text-4xl font-bold uppercase">Citations</h1>
+                <h1 className="text-xl font-bold uppercase">Citations</h1>
             </div>
             <section className="grow w-full">
                 <TableQuote />

@@ -27,6 +27,7 @@ export default async function AccountLayout({
   const links = [
     { href: "/account", label: "Mon compte", icon: User },
     { href: "/account/quotes", label: "Citations", icon: MessageSquareQuote },
+    { href: "/", label: "retour", icon: MessageSquareQuote },
   ];
 
   return (
@@ -34,7 +35,7 @@ export default async function AccountLayout({
         <div className="w-9/10 m-auto border-x flex flex-col h-screen">
             <Header />
             <main className="flex grow">
-                <section className="w-1/5 border-r flex flex-col justify-between p-4">
+                <section className="w-1/6 border-r flex flex-col justify-between p-4">
                     <div>
                         <nav className="flex flex-col gap-2">
                             {links.map(link => (
@@ -74,9 +75,9 @@ export default async function AccountLayout({
                         </div>
                     </div>
                 </section>
-                <section className="w-4/5">
-                  <div className="bg-diagonale border-b h-12 w-full"></div>
-                  <div className="p-4">
+                <section className="w-5/6 flex flex-col">
+                  <div className="bg-diagonale border-b h-12 flex-none w-full"></div>
+                  <div className="p-4 grow">
                     {children}
                   </div>
                 </section>

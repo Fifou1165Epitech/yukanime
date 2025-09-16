@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
 
     const searchParams = request.nextUrl.searchParams
     const page = searchParams.get('page') || '1';
-    const countByPage = 10;
+    const countByPage = 15;
     console.log("Page:", page);
     const totalQuotes = await prisma.quote.count();
     const pageCount = Math.ceil(totalQuotes / countByPage);

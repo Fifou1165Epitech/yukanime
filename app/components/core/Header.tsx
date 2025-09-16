@@ -1,9 +1,17 @@
 import { CircleUser } from 'lucide-react';
-import Link from "next/dist/client/link";
+import Link from "next/link";
 import Image from 'next/image'
+import AvatarHeader from '../secondary/buttons/AvatarHeader';
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { Button } from '@/components/ui/button';
 
+export default async function Header() {
 
-export default function Header() {
+  const session = await auth.api.getSession({
+      headers: await headers()
+  })
+
   return (
     <header className="flex-none flex justify-between items-center border-b border-foreground/10 sticky top-0 backdrop-blur-md backdrop-grayscale z-10">
       <div className="flex self-stretch items-center px-2 border-r py-1">
@@ -27,10 +35,14 @@ export default function Header() {
           <Link className="self-stretch items-center flex px-3 hover:bg-foreground hover:text-background duration-100 text-xs" href="/news">Nouveautées</Link>
         </nav>
         <div className="flex items-center self-stretch">
+          {/* <AvatarHeader /> */}
           <div className="self-stretch bg-foreground/10 w-0.1"></div>
-            <Link className="self-stretch items-center flex px-3 hover:bg-foreground hover:text-background duration-100 text-xs" href="/account">
+          <Link href="/account" className="px-2">
+            <AvatarHeader img={session?.user?.image} />
+          </Link>
+            {/* <Link className="self-stretch items-center flex px-3 hover:bg-foreground hover:text-background duration-100 text-xs" href="/account">
               <CircleUser size={16} />
-            </Link>
+            </Link> */}
           </div>
       </div>
     </header>

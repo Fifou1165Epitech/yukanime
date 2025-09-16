@@ -33,7 +33,7 @@ export default async function AccountLayout({
         <div className="w-9/10 m-auto border-x flex flex-col h-screen">
             <Header />
             <main className="flex grow">
-                <section className="w-1/5 border-r flex flex-col justify-between p-4">
+                <section className="w-1/6 border-r flex flex-col justify-between p-4">
                     <div>
                         <nav className="flex flex-col gap-2">
                             {links.map(link => (
@@ -69,7 +69,7 @@ export default async function AccountLayout({
                         </div>
                     </div>
                 </section>
-                <section className="w-4/5 flex flex-col">
+                <section className="w-5/6 flex flex-col">
                   <div className="bg-diagonale border-b h-12 flex-none w-full"></div>
                   <div className="p-4 grow">
                     {children}
